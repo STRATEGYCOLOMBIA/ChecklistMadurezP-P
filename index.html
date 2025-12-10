@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Checklist: Madurez de Planeación y Programación</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fuentes: Bebas Neue (titulares / marca) + Inter (cuerpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #032f6b;      /* Azul oscuro Brainbox */
+            --color-secondary: #00a1e4;    /* Azul brillante Brainbox */
+            --color-accent: #2bb3f3;       /* Azul claro/acento */
+            --color-bg: #e9f4ff;           /* Fondo suave */
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-bg);
+        }
+
+        .brand-font {
+            font-family: 'Bebas Neue', system-ui, sans-serif;
+            letter-spacing: 0.08em;
+        }
+
+        .score-level-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .radio-button:checked + label {
+            background-color: var(--color-secondary);
+            color: white;
+            border-color: var(--color-secondary);
+            box-shadow: 0 2px 5px rgba(0, 161, 228, 0.5);
+        }
+
+        .radio-button:focus + label {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 161, 228, 0.4);
+        }
+
+        .pillar-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .pillar-card:hover {
+             transform: translateY(-4px);
+        }
+
+        .pyramid-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(3, 47, 107, 0.25);
+        }
+
+        .input-field {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            width: 100%;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #ffffff;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 2px rgba(0, 161, 228, 0.4);
+        }
+
+        .bg-brand-soft {
+            background: linear-gradient(135deg, #ffffff, #e9f4ff);
+        }
+
+        .text-brand-primary {
+            color: var(--color-primary);
+        }
+
+        .text-brand-secondary {
+            color: var(--color-secondary);
+        }
+
+        .border-brand-primary {
+            border-color: var(--color-primary);
+        }
+
+        .border-brand-secondary {
+            border-color: var(--color-secondary);
+        }
+
+        .btn-primary {
+            background-color: var(--color-secondary);
+            box-shadow: 0 10px 20px rgba(3, 47, 107, 0.18);
+        }
+
+        .btn-primary:hover {
+            background-color: #008ac3;
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 161, 228, 0.35);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-2xl">
+
+        <!-- Encabezado con logo Brainbox -->
+        <header class="mb-10">
+            <div class="flex flex-col items-center gap-4">
+                <img src="https://i.ibb.co/JjwJvYWG/brainbox.png"
+                     alt="Strategy Brainbox"
+                     class="w-40 h-auto drop-shadow-lg">
+                <div class="text-center">
+                    <h1 class="brand-font text-brand-primary text-3xl md:text-4xl font-extrabold mb-1 uppercase">
+                        Diagnóstico de Madurez P&amp;P
+                    </h1>
+                    <p class="text-sm md:text-base text-gray-600 tracking-wide">
+                        Fast Checklist · Planeación y Programación
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- PANTALLA 1: REGISTRO DE DATOS PERSONALES -->
+        <div id="registrationScreen">
+            <div class="p-6 md:p-8 bg-brand-soft border-l-4 border-brand-secondary rounded-lg mb-8">
+                <p class="brand-font text-xl md:text-2xl text-brand-primary mb-1 tracking-wide">
+                    Paso 1 · Ingresa tus datos
+                </p>
+            </div>
+            
+            <form id="registrationForm" class="space-y-6">
+                <!-- Nombre Completo (Requerido) -->
+                <div>
+                    <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+                    <input type="text" id="fullName" class="input-field" required placeholder="Ej: Juan Pérez">
+                </div>
+                <!-- Correo (Requerido) -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                    <input type="email" id="email" class="input-field" required placeholder="Ej: tu.correo@empresa.com">
+                </div>
+                <!-- Celular (Opcional) -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Celular (opcional)</label>
+                    <input type="tel" id="phone" class="input-field" placeholder="Ej: +57 300 1234567">
+                </div>
+                <!-- Empresa (Requerido) -->
+                <div>
+                    <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Empresa</label>
+                    <input type="text" id="company" class="input-field" required placeholder="Ej: Acme Corp">
+                </div>
+                <!-- Cargo (Requerido) -->
+                <div>
+                    <label for="position" class="block text-sm font-medium text-gray-700 mb-1">Cargo</label>
+                    <input type="text" id="position" class="input-field" required placeholder="Ej: Gerente de Mantenimiento">
+                </div>
+                
+                <!-- CHECKBOX DE POLÍTICA DE DATOS -->
+                <div class="pt-2">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="dataPolicy" required class="mt-1 mr-2 h-4 w-4 text-brand-secondary border-gray-300 rounded focus:ring-brand-secondary">
+                        <label for="dataPolicy" class="text-sm text-gray-700">
+                            Acepto la
+                            <a href="https://strategy.com.co/politica-de-tratamiento-de-datos/" target="_blank" class="text-brand-secondary hover:underline font-medium">
+                                Política de Tratamiento de Datos
+                            </a>.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-4 text-center">
+                    <button type="submit"
+                            id="startChecklistBtn"
+                            class="btn-primary text-white font-bold py-3 px-8 rounded-xl transition duration-300 ease-in-out transform">
+                        Comenzar diagnóstico
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- PANTALLA 2: CHECKLIST (Inicialmente oculta) -->
+        <div id="checklistScreen" class="hidden">
+            <div class="p-4 bg-brand-soft border-l-4 border-brand-secondary rounded-lg mb-8">
+                <p class="brand-font text-xl md:text-2xl text-brand-primary mb-1 tracking-wide">
+                    Paso 2 · Evalúa tu madurez
+                </p>
+                <p class="text-sm text-gray-700 font-medium">
+                    Selecciona el nivel (1 a 5) que mejor describe el estado actual de tu organización en cada pilar.
+                </p>
+            </div>
+            
+            <!-- Checklist de pilares -->
+            <form id="checklistForm">
+                <div id="pillarsContainer" class="space-y-8">
+                    <!-- Pilares generados dinámicamente -->
+                </div>
+            </form>
+
+            <!-- Pirámide de madurez (siempre visible como referencia, debajo de los pilares) -->
+            <div class="mt-10">
+                <h3 class="brand-font text-center text-brand-primary text-xl md:text-2xl mb-4 tracking-wide">
+                    Pirámide de madurez de planeación y programación
+                </h3>
+                <img src="https://i.ibb.co/WWJNm8TS/Imagen1.png" 
+                     onerror="this.onerror=null; this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAAB5AAAAB5CAYAAABQYgI+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0AdPc/AAAAIJJREFUeF7t0AEBAAAAwqD1T20NDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAB4+X7lM1vjAAAAAElFTkSuQmCC';" 
+                     alt="Pirámide de madurez de Planeación y Programación" 
+                     class="pyramid-img mx-auto">
+                <p class="text-xs md:text-sm text-center text-gray-500 mt-2">
+                    Utiliza esta pirámide como referencia para interpretar los niveles de madurez antes de calcular tu diagnóstico.
+                </p>
+            </div>
+
+            <!-- Botón de Cálculo -->
+            <div class="mt-10 text-center">
+                <button id="calculateBtn"
+                        class="btn-primary text-white font-bold py-3 px-8 rounded-xl transition duration-300 ease-in-out transform">
+                    Calcular diagnóstico
+                </button>
+            </div>
+
+            <!-- Sección de Resultados (Inicialmente oculta) -->
+            <div id="resultsSection" class="mt-12 p-6 md:p-8 bg-gray-50 border border-gray-200 rounded-xl hidden">
+                <h2 class="brand-font text-3xl text-center text-brand-primary mb-6 tracking-wide">
+                    Resultado de madurez
+                </h2>
+                
+                <div id="resultCard" class="bg-white p-6 rounded-lg border-2 border-brand-primary text-center">
+                    <p class="text-sm font-semibold text-gray-500">Puntuación ponderada total (0–100%)</p>
+                    <p id="finalScore" class="text-6xl font-extrabold text-brand-secondary my-2">--%</p>
+                    <p id="maturityLevel" class="text-3xl font-bold mt-4 mb-4 text-brand-primary">--</p>
+                    <div class="h-1 bg-gray-200 rounded-full w-full max-w-sm mx-auto my-4">
+                        <div id="scoreBar" class="h-full bg-brand-secondary rounded-full" style="width: 0%;"></div>
+                    </div>
+                    <p id="levelMessage" class="text-md text-gray-700 italic mt-4"></p>
+                </div>
+
+                <!-- Botón para volver a calcular (requiere nuevo registro) -->
+                <div class="mt-6 text-center">
+                    <button id="recalculateBtn"
+                            class="bg-white text-brand-primary border border-brand-primary font-semibold py-2 px-6 rounded-xl shadow-sm hover:bg-brand-soft transition duration-200 hidden">
+                        Calcular de nuevo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Definición de los datos (Pillars y Maturity Levels)
+        const pillars = [
+            {
+                name: "Estructura organizacional",
+                weight: 0.20,
+                id: "organizational",
+                levels: [
+                    { score: 5, description: "Los planificadores y programadores asumen un rol estratégico, participando activamente en los procesos y comités donde se definen inversiones y planes de largo plazo. La estructura es interfuncional, con mantenimiento, operaciones, ingeniería y compras trabajando bajo responsabilidades y métricas compartidas." },
+                    { score: 4, description: "Se cuenta con un equipo de planificación y programación dedicado, con responsabilidades bien definidas y procesos estandarizados. La coordinación con operaciones y con almacén es rutinaria, lo que permite asegurar recursos y ventanas de intervención." },
+                    { score: 3, description: "Se establece el rol formal de planificador/programador. Este se encarga de preparar órdenes de trabajo, estimar recursos y coordinar con operaciones." },
+                    { score: 2, description: "Se asignan responsabilidades parciales para coordinar actividades preventivas, pero sin dedicación exclusiva ni procesos claros." },
+                    { score: 1, description: "No existen roles definidos de planificación o programación. Los supervisores asignan tareas de manera informal y reactiva." }
+                ]
+            },
+            {
+                name: "Métodos y Procesos",
+                weight: 0.30,
+                id: "methods",
+                levels: [
+                    { score: 5, description: "La planeación se realiza en diferentes horizontes de tiempo (corto, mediano y largo plazo) alineada con el presupuesto, y la programación se complementa con proyecciones a horizontes más amplios que una semana. La priorización de órdenes se aplica y respeta, aportando eficiencia a la utilización de la capacidad disponible. La gestión de recursos y materiales es lo suficientemente sólida como para que los trabajos retenidos por falta de insumos sean mínimos." },
+                    { score: 4, description: "Los procesos de planeación y programación son estandarizados y aplicados de forma consistente. Se emplean técnicas de priorización, análisis de criticidad y gestión del backlog. Los materiales y recursos son planeados y usualmente se encuentran disponibles antes de la realización de las actividades." },
+                    { score: 3, description: "Se establecen métodos y flujos de trabajo documentados para planear y programar. Se desarrolla una planeación semanal con ajustes diarios, complementada con reuniones regulares para su revisión. Sin embargo, las prioridades cambian con frecuencia y no siempre se cuenta con todos los recursos disponibles antes de la ejecución." },
+                    { score: 2, description: "La programación de actividades se realiza diariamente pero la ejecución suele verse interrumpida con frecuencia por urgencias o imprevistos, lo que impide dar continuidad a los planes." },
+                    { score: 1, description: "No existe planeación ni programación. Cada intervención se gestiona de forma aislada y reactiva." }
+                ]
+            },
+            {
+                name: "Sistemas y Tecnología",
+                weight: 0.25,
+                id: "systems",
+                levels: [
+                    { score: 5, description: "Los sistemas de información están totalmente integrados con compras y materiales. El registro de la ejecución de las órdenes de trabajo es en tiempo real, los indicadores clave se generan de forma oportuna y apoyan la toma de decisiones estratégicas y la mejora continua." },
+                    { score: 4, description: "El CMMS se encuentra integrado con el módulo de gestión de materiales. La ejecución de las órdenes de trabajo se registra de manera oportuna en el mismo sistema, y algunos indicadores se generan de forma semiautomática." },
+                    { score: 3, description: "Uso funcional del CMMS para registrar activos, generar órdenes de trabajo y registrar backlog. La generación de indicadores requiere de esfuerzo manual." },
+                    { score: 2, description: "Se utilizan herramientas básicas (como Excel) para planificar y programar. El registro de ejecución de las órdenes de trabajo es manual, tardío y se archiva en sistemas alternativos de documentación." },
+                    { score: 1, description: "No se cuenta con sistemas formales para la planeación y programación; el control de actividades se gestiona de manera informal mediante papel, llamadas o mensajes." }
+                ]
+            },
+            {
+                name: "Seguimiento y Mejora del Desempeño",
+                weight: 0.25,
+                id: "performance",
+                levels: [
+                    { score: 5, description: "El desempeño de la planeación y programación se evalúa mediante un cuadro integral de indicadores estratégicos y operativos, calculados en tiempo real y alineados con los objetivos de gestión de activos. El análisis de causa raíz se desarrolla de forma estructurada y sistemática, transformándose en lecciones aprendidas que fortalecen el proceso en los niveles estratégico, táctico y operativo." },
+                    { score: 4, description: "El sistema de seguimiento cuenta con dashboards visibles para mantenimiento y operaciones, con información actualizada automáticamente en intervalos cortos y regulares. Se analizan causas de reprogramación y se establecen acciones correctivas. Los indicadores se integran a los planes de trabajo y se gestionan con responsables claros." },
+                    { score: 3, description: "Se monitorean de manera semanal indicadores como cumplimiento de programación, % de trabajo planificado vs. reactivo, backlog disponible, entre otros. Los datos para su cálculo se extraen desde el CMMS y se discuten en reuniones semanales de seguimiento." },
+                    { score: 2, description: "Existen reportes periódicos básicos (mensuales o trimestrales), centrados en el cumplimiento de mantenimientos preventivos y el volumen de trabajo." },
+                    { score: 1, description: "No existen métricas definidas para seguimiento." }
+                ]
+            }
+        ];
+
+        // RANGOS DE MADUREZ ACTUALIZADOS
+        const maturityLevels = [
+            { range: [90, 100], level: "Excelencia", color: "text-blue-700", bg: "bg-blue-200", message: "¡Felicidades! Tu organización demuestra un alto grado de madurez en planeación y programación, con prácticas sólidas y enfoque en mejora continua. Este resultado refleja un nivel de gestión sobresaliente." },
+            { range: [75, 89], level: "Competencia", color: "text-green-700", bg: "bg-green-200", message: "Tu resultado refleja un proceso de planeación y programación maduro, estable y confiable. Es un nivel que muchas organizaciones buscan alcanzar, pues garantiza orden y cumplimiento. Para seguir avanzando hacia la excelencia, te invitamos a explorar un diagnóstico más detallado que identifique oportunidades de optimización." },
+            { range: [50, 74], level: "Entendimiento", color: "text-yellow-700", bg: "bg-yellow-200", message: "Se evidencia que tu organización ya ha dado pasos sólidos: existen roles, procesos o herramientas, aunque todavía no de forma completamente consolidada. Este nivel es una buena base para avanzar hacia mayor disciplina y alineación con la estrategia. Un diagnóstico más detallado puede ayudarte a cerrar brechas y consolidar prácticas, acelerando tu avance hacia niveles superiores de madurez." },
+            { range: [30, 49], level: "Conciencia", color: "text-orange-700", bg: "bg-orange-200", message: "Tu organización ya reconoce la importancia de la planeación y programación, aunque aún se gestiona de forma básica. Estás en camino de estructurar tu gestión. Un análisis más detallado permitirá identificar los pasos concretos para pasar de la reacción a una planificación más sólida." },
+            { range: [20, 29], level: "Inocencia", color: "text-red-700", bg: "bg-red-200", message: "Tu diagnóstico muestra un nivel inicial en planeación y programación. Estás en un punto de partida con gran potencial para estructurar procesos y dar los primeros pasos hacia una gestión más organizada. Un diagnóstico más profundo puede ayudarte a definir la hoja de ruta inicial y priorizar las primeras acciones que generen un impacto visible." }
+        ];
+
+        // Almacenes de datos
+        let userData = {};
+        const selectedScores = {};
+        let alreadyCalculated = false; // Para controlar recálculos sin nuevo registro
+
+        // Modal de alerta
+        function alertModal(message) {
+            const tempAlert = document.createElement('div');
+            tempAlert.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            tempAlert.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
+                    <h4 class="text-xl font-bold text-red-600 mb-4">Advertencia</h4>
+                    <p class="text-gray-700 mb-6">${message}</p>
+                    <button onclick="this.parentNode.parentNode.remove()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-200">
+                        Entendido
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(tempAlert);
+        }
+        
+        // --- Pantalla de registro ---
+        function handleRegistrationSubmit(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim(); 
+            const company = document.getElementById('company').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const dataPolicyChecked = document.getElementById('dataPolicy').checked;
+
+            if (!fullName || !email || !company || !position) {
+                alertModal("Por favor, completa todos los campos obligatorios del registro (Nombre, Correo, Empresa y Cargo) para continuar.");
+                return;
+            }
+
+            if (!dataPolicyChecked) {
+                alertModal("Debes aceptar la Política de Tratamiento de Datos para continuar con el diagnóstico.");
+                return;
+            }
+            
+            userData = { fullName, email, phone, company, position };
+            
+            document.getElementById('registrationScreen').classList.add('hidden');
+            document.getElementById('checklistScreen').classList.remove('hidden');
+
+            renderChecklist();
+            document.getElementById('checklistScreen').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Checklist ---
+        function renderChecklist() {
+            const container = document.getElementById('pillarsContainer');
+            if (container.children.length > 0) return;
+
+            pillars.forEach(pillar => {
+                const pillarHtml = `
+                    <div class="pillar-card bg-gray-50 p-6 rounded-lg border border-gray-200 transition duration-300">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-1 flex justify-between items-center">
+                            <span>${pillar.name}</span>
+                            <span class="text-xs md:text-sm font-medium text-brand-secondary bg-brand-soft px-3 py-1 rounded-full">${(pillar.weight * 100).toFixed(0)}%</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-4">Selecciona el nivel de madurez que mejor te describe:</p>
+
+                        <div class="flex flex-wrap justify-between gap-2 mb-4">
+                            ${pillar.levels.map(level => `
+                                <div>
+                                    <input type="radio" id="${pillar.id}-score-${level.score}" name="${pillar.id}-score" value="${level.score}" class="radio-button hidden" data-pillar-id="${pillar.id}" required>
+                                    <label for="${pillar.id}-score-${level.score}" 
+                                           class="score-level-button block text-center cursor-pointer p-2 rounded-lg border-2 border-gray-300 text-gray-700 font-bold transition duration-200 text-sm w-12"
+                                           title="Nivel ${level.score}: ${level.description}">
+                                        ${level.score}
+                                    </label>
+                                </div>
+                            `).reverse().join('')} 
+                        </div>
+
+                        <div id="${pillar.id}-description" class="p-3 mt-4 bg-white border border-dashed border-gray-300 rounded-lg text-sm text-gray-600 italic hidden"></div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', pillarHtml);
+
+                document.querySelectorAll(`input[name="${pillar.id}-score"]`).forEach(radio => {
+                    radio.addEventListener('change', (event) => {
+                        const score = parseInt(event.target.value);
+                        const pillarId = event.target.dataset.pillarId;
+                        
+                        selectedScores[pillarId] = score;
+                        updatePillarDescription(pillarId, score);
+                        checkCompletion();
+                    });
+                });
+            });
+
+            const btn = document.getElementById('calculateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        function updatePillarDescription(pillarId, score) {
+            const descriptionDiv = document.getElementById(`${pillarId}-description`);
+            const pillar = pillars.find(p => p.id === pillarId);
+            const level = pillar.levels.find(l => l.score === score);
+
+            if (level) {
+                descriptionDiv.innerHTML = `<span class="font-semibold text-gray-800">Nivel ${score}:</span> ${level.description}`;
+                descriptionDiv.classList.remove('hidden');
+            } else {
+                descriptionDiv.classList.add('hidden');
+            }
+        }
+
+        function checkCompletion() {
+            const allSelected = pillars.every(p => selectedScores.hasOwnProperty(p.id));
+            const btn = document.getElementById('calculateBtn');
+            
+            if (allSelected && !alreadyCalculated) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // Enviar datos al Flow de Power Automate
+        function sendRowToPowerAutomate(score, diagnosis) {
+            const payload = {
+                type: "RegistroMadurezPP",
+                properties: {
+                    nombreApellidos: { type: userData.fullName },
+                    correo: { type: userData.email },
+                    celular: { type: userData.phone || "" },
+                    empresa: { type: userData.company },
+                    cargo: { type: userData.position },
+                    estructuraOrganizacional: { type: String(selectedScores["organizational"] ?? "") },
+                    metodosProcesos: { type: String(selectedScores["methods"] ?? "") },
+                    sistemasTecnologia: { type: String(selectedScores["systems"] ?? "") },
+                    seguimientoMejora: { type: String(selectedScores["performance"] ?? "") },
+                    madurez: { type: `${diagnosis.level} (${score.toFixed(1)}%)` }
+                }
+            };
+
+            fetch("https://default8bf4cc2d4c114c129cc2a472854e3b.f2.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/8569a12435e243b3b1230a50af3b6add/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BzUbLBJgQ5fwtsbL5e46-b30JMsRl8ABzTUvXzYCI9I", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                mode: "cors",
+                body: JSON.stringify(payload)
+            }).catch(err => {
+                console.error("Error enviando datos a Power Automate:", err);
+            });
+        }
+
+        // Calcular diagnóstico
+        function calculateDiagnosis() {
+            let weightedScore = 0;
+            let missingPillars = [];
+
+            pillars.forEach(pillar => {
+                const score = selectedScores[pillar.id];
+                if (score) {
+                    weightedScore += score * pillar.weight;
+                } else {
+                    missingPillars.push(pillar.name);
+                }
+            });
+
+            if (missingPillars.length > 0) {
+                alertModal(`Por favor, selecciona un nivel de madurez para todos los pilares antes de calcular. Faltan: ${missingPillars.join(', ')}`);
+                return;
+            }
+
+            const maxScore = 5; 
+            const finalPercentage = (weightedScore / maxScore) * 100;
+            const finalPercentageRounded = parseFloat(finalPercentage.toFixed(1));
+
+            let diagnosis;
+            if (finalPercentageRounded >= 90) {
+                diagnosis = maturityLevels.find(m => m.level === "Excelencia");
+            } else if (finalPercentageRounded >= 75) { 
+                diagnosis = maturityLevels.find(m => m.level === "Competencia");
+            } else if (finalPercentageRounded >= 50) { 
+                diagnosis = maturityLevels.find(m => m.level === "Entendimiento");
+            } else if (finalPercentageRounded >= 30) { 
+                diagnosis = maturityLevels.find(m => m.level === "Conciencia");
+            } else { 
+                diagnosis = maturityLevels.find(m => m.level === "Inocencia");
+            }
+
+            // Mostrar resultados
+            displayResults(finalPercentageRounded, diagnosis);
+
+            // Enviar datos al Flow
+            sendRowToPowerAutomate(finalPercentageRounded, diagnosis);
+
+            // Marcar que ya se calculó y deshabilitar botón de cálculo
+            alreadyCalculated = true;
+            const btn = document.getElementById('calculateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Mostrar botón "Calcular de nuevo"
+            document.getElementById('recalculateBtn').classList.remove('hidden');
+        }
+
+        // Mostrar resultados
+        function displayResults(score, diagnosis) {
+            document.getElementById('finalScore').textContent = `${score.toFixed(1)}%`;
+            document.getElementById('maturityLevel').textContent = diagnosis.level;
+            document.getElementById('maturityLevel').className = `text-3xl font-bold mt-4 mb-4 ${diagnosis.color}`;
+            document.getElementById('levelMessage').textContent = diagnosis.message;
+
+            const scoreBar = document.getElementById('scoreBar');
+            scoreBar.style.width = `${score}%`;
+            scoreBar.className = 'h-full rounded-full';
+            
+            let barColor = 'bg-red-500';
+            if (score >= 90) barColor = 'bg-blue-600';
+            else if (score >= 75) barColor = 'bg-green-600';
+            else if (score >= 50) barColor = 'bg-yellow-500';
+            else if (score >= 30) barColor = 'bg-orange-500';
+            
+            scoreBar.classList.add(barColor);
+
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reset completo para obligar a nuevo registro
+        function resetToolForNewUser() {
+            // Vaciar datos
+            userData = {};
+            for (const key in selectedScores) {
+                delete selectedScores[key];
+            }
+            alreadyCalculated = false;
+
+            // Reset formularios
+            document.getElementById('registrationForm').reset();
+            document.getElementById('checklistForm').reset();
+
+            // Estado de pantallas
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('checklistScreen').classList.add('hidden');
+            document.getElementById('registrationScreen').classList.remove('hidden');
+
+            // Limpiar pilares para regenerar
+            document.getElementById('pillarsContainer').innerHTML = '';
+
+            // Reset visual de resultados
+            document.getElementById('finalScore').textContent = '--%';
+            const maturityLevelEl = document.getElementById('maturityLevel');
+            maturityLevelEl.textContent = '--';
+            maturityLevelEl.className = 'text-3xl font-bold mt-4 mb-4 text-brand-primary';
+            document.getElementById('levelMessage').textContent = '';
+
+            const scoreBar = document.getElementById('scoreBar');
+            scoreBar.style.width = '0%';
+            scoreBar.className = 'h-full bg-brand-secondary rounded-full';
+
+            // Botones
+            const calcBtn = document.getElementById('calculateBtn');
+            calcBtn.disabled = true;
+            calcBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            document.getElementById('recalculateBtn').classList.add('hidden');
+
+            // Volver arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inicialización
+        window.onload = () => {
+            document.getElementById('registrationForm').addEventListener('submit', handleRegistrationSubmit);
+            document.getElementById('calculateBtn').addEventListener('click', calculateDiagnosis);
+
+            const recalcBtn = document.getElementById('recalculateBtn');
+            if (recalcBtn) {
+                recalcBtn.addEventListener('click', resetToolForNewUser);
+            }
+        };
+    </script>
+</body>
+</html>
