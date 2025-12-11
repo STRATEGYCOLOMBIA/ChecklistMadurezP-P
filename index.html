@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -139,7 +139,7 @@
         <!-- PANTALLA 1: REGISTRO DE DATOS PERSONALES -->
         <div id="registrationScreen">
             <div class="p-6 md:p-8 bg-brand-soft border-l-4 border-brand-secondary rounded-lg mb-8">
-                <p class="brand-font text-xl md:text-2xl text-brand-primary mb-1 tracking-wide">
+                <p class="brand-font text-xl md:text-2xl text-brand-primary mb-0 tracking-wide">
                     Paso 1 · Ingresa tus datos
                 </p>
             </div>
@@ -202,6 +202,9 @@
                 </p>
                 <p class="text-sm text-gray-700 font-medium">
                     Selecciona el nivel (1 a 5) que mejor describe el estado actual de tu organización en cada pilar.
+                    <span class="block mt-1 text-xs text-gray-600">
+                        Para ver la descripción de cada nivel, haz clic sobre el número correspondiente.
+                    </span>
                 </p>
             </div>
             
@@ -217,12 +220,15 @@
                 <h3 class="brand-font text-center text-brand-primary text-xl md:text-2xl mb-4 tracking-wide">
                     Pirámide de madurez de planeación y programación
                 </h3>
-                <img src="https://i.ibb.co/WWJNm8TS/Imagen1.png" 
+                <img src="https://i.ibb.co/PvVKXjSd/Imagen1mod.png" 
                      onerror="this.onerror=null; this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAAB5AAAAB5CAYAAABQYgI+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0AdPc/AAAAIJJREFUeF7t0AEBAAAAwqD1T20NDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAB4+X7lM1vjAAAAAElFTkSuQmCC';" 
                      alt="Pirámide de madurez de Planeación y Programación" 
                      class="pyramid-img mx-auto">
                 <p class="text-xs md:text-sm text-center text-gray-500 mt-2">
                     Utiliza esta pirámide como referencia para interpretar los niveles de madurez antes de calcular tu diagnóstico.
+                </p>
+                <p class="text-[10px] md:text-xs text-center text-gray-500 mt-1 max-w-xl mx-auto">
+                    Nota: en los rangos de la pirámide, los extremos con <strong>)</strong> no están incluidos en el intervalo, mientras que los que tienen <strong>[</strong> sí se consideran incluidos.
                 </p>
             </div>
 
@@ -241,13 +247,26 @@
                 </h2>
                 
                 <div id="resultCard" class="bg-white p-6 rounded-lg border-2 border-brand-primary text-center">
-                    <p class="text-sm font-semibold text-gray-500">Puntuación ponderada total (0–100%)</p>
+                    <p class="text-sm font-semibold text-gray-500">Puntuación ponderada total (20–100%)</p>
                     <p id="finalScore" class="text-6xl font-extrabold text-brand-secondary my-2">--%</p>
                     <p id="maturityLevel" class="text-3xl font-bold mt-4 mb-4 text-brand-primary">--</p>
                     <div class="h-1 bg-gray-200 rounded-full w-full max-w-sm mx-auto my-4">
                         <div id="scoreBar" class="h-full bg-brand-secondary rounded-full" style="width: 0%;"></div>
                     </div>
                     <p id="levelMessage" class="text-md text-gray-700 italic mt-4"></p>
+                </div>
+
+                <!-- Call to action -->
+                <div class="mt-6 max-w-xl mx-auto text-center border border-dashed border-brand-secondary rounded-lg p-4 bg-white">
+                    <p class="text-sm text-gray-700">
+                        ¿Te gustaría que revisemos juntos tus resultados y te propongamos un siguiente paso a la medida de tu organización?
+                        <br>
+                        Escríbenos al correo
+                        <a href="mailto:strategybrainbox@strategy.com.co"
+                           class="font-semibold text-brand-secondary underline">
+                            strategybrainbox@strategy.com.co
+                        </a>.
+                    </p>
                 </div>
 
                 <!-- Botón para volver a calcular (requiere nuevo registro) -->
@@ -274,7 +293,7 @@
                     { score: 4, description: "Se cuenta con un equipo de planificación y programación dedicado, con responsabilidades bien definidas y procesos estandarizados. La coordinación con operaciones y con almacén es rutinaria, lo que permite asegurar recursos y ventanas de intervención." },
                     { score: 3, description: "Se establece el rol formal de planificador/programador. Este se encarga de preparar órdenes de trabajo, estimar recursos y coordinar con operaciones." },
                     { score: 2, description: "Se asignan responsabilidades parciales para coordinar actividades preventivas, pero sin dedicación exclusiva ni procesos claros." },
-                    { score: 1, description: "No existen roles definidos de planificación o programación. Los supervisores asignan tareas de manera informal y reactiva." }
+                    { score: 1, description: "No existen roles definidos de planificación o programación. El profesional de mantenimiento asigna tareas de manera informal y reactiva." }
                 ]
             },
             {
@@ -611,3 +630,4 @@
     </script>
 </body>
 </html>
+
