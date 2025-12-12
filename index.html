@@ -158,7 +158,7 @@
                 <!-- Celular (Opcional) -->
                 <div>
                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Celular (opcional)</label>
-                    <input type="tel" id="phone" class="input-field" placeholder="Ej: +57 300 1234567">
+                    <input type="tel" id="phone" class="input-field" placeholder="Ej: +57 300 1234567" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 </div>
                 <!-- Empresa (Requerido) -->
                 <div>
@@ -193,6 +193,40 @@
                 </div>
             </form>
         </div>
+        <!-- PANTALLA 2: CONTEXTO (Inicialmente oculta) -->
+        <div id="contextScreen" class="hidden">
+            <div class="p-6 md:p-8 bg-brand-soft border-l-4 border-brand-secondary rounded-lg mb-8">
+                <p class="brand-font text-xl md:text-2xl text-brand-primary mb-0 tracking-wide">
+                    Paso 2 · Contexto del diagnóstico
+                </p>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-6 md:p-8 shadow-sm">
+                <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+                    Este diagnóstico es una herramienta rápida y orientativa que le permitirá obtener una primera aproximación al nivel de madurez de la planeación y programación del mantenimiento, estructurado bajo 4 pilares claves. Cada pilar tiene un peso asignado y se evalúa mediante una escala de 1 a 5, según el nivel que mejor represente la situación actual de la organización. Las respuestas se consolidan para obtener un resultado global (expresado en un rango entre 20 % y 100 %) e interpretado según los niveles de madurez mostrados en la siguiente pirámide:
+                </p>
+            </div>
+
+                <div class="mt-6">
+                    
+                    <img src="https://i.ibb.co/PvVKXjSd/Imagen1mod.png" 
+                        onerror="this.onerror=null; this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAAB5AAAAB5CAYAAABQYgI+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0AdPc/AAAAIJJREFUeF7t0AEBAAAAwqD1T20NDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAB4+X7lM1vjAAAAAElFTkSuQmCC';" 
+                        alt="Pirámide de madurez de Planeación y Programación" 
+                        class="pyramid-img mx-auto max-w-sm md:max-w-md lg:max-w-lg">
+                    <p class="text-xs md:text-sm text-center text-gray-500 mt-2">
+                        Utiliza esta pirámide como referencia para interpretar los niveles de madurez antes de calcular tu diagnóstico.
+                    </p>
+                    <p class="text-[10px] md:text-xs text-center text-gray-500 mt-1 max-w-xl mx-auto">
+                        Nota: en los rangos de la pirámide, los extremos con <strong>)</strong> no están incluidos en el intervalo, mientras que los que tienen <strong>[</strong> sí se consideran incluidos.
+                    </p>
+                </div>
+                <div class="mt-6 text-center">
+                    <button id="continueToChecklistBtn"
+                            class="btn-primary text-white font-bold py-3 px-8 rounded-xl transition duration-300 ease-in-out transform">
+                        Continuar a la evaluación
+                    </button>
+                </div>
+        </div>
 
         <!-- PANTALLA 2: CHECKLIST (Inicialmente oculta) -->
         <div id="checklistScreen" class="hidden">
@@ -214,23 +248,6 @@
                     <!-- Pilares generados dinámicamente -->
                 </div>
             </form>
-
-            <!-- Pirámide de madurez (siempre visible como referencia, debajo de los pilares) -->
-            <div class="mt-10">
-                <h3 class="brand-font text-center text-brand-primary text-xl md:text-2xl mb-4 tracking-wide">
-                    Pirámide de madurez de planeación y programación
-                </h3>
-                <img src="https://i.ibb.co/PvVKXjSd/Imagen1mod.png" 
-                     onerror="this.onerror=null; this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAAB5AAAAB5CAYAAABQYgI+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0AdPc/AAAAIJJREFUeF7t0AEBAAAAwqD1T20NDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAB4+X7lM1vjAAAAAElFTkSuQmCC';" 
-                     alt="Pirámide de madurez de Planeación y Programación" 
-                     class="pyramid-img mx-auto">
-                <p class="text-xs md:text-sm text-center text-gray-500 mt-2">
-                    Utiliza esta pirámide como referencia para interpretar los niveles de madurez antes de calcular tu diagnóstico.
-                </p>
-                <p class="text-[10px] md:text-xs text-center text-gray-500 mt-1 max-w-xl mx-auto">
-                    Nota: en los rangos de la pirámide, los extremos con <strong>)</strong> no están incluidos en el intervalo, mientras que los que tienen <strong>[</strong> sí se consideran incluidos.
-                </p>
-            </div>
 
             <!-- Botón de Cálculo -->
             <div class="mt-10 text-center">
@@ -254,6 +271,17 @@
                         <div id="scoreBar" class="h-full bg-brand-secondary rounded-full" style="width: 0%;"></div>
                     </div>
                     <p id="levelMessage" class="text-md text-gray-700 italic mt-4"></p>
+                </div>
+
+                <!-- Pirámide de madurez (siempre visible como referencia, debajo de los pilares) -->
+                <div class="mt-6">      
+                    <img src="https://i.ibb.co/PvVKXjSd/Imagen1mod.png" 
+                        onerror="this.onerror=null; this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAAB5AAAAB5CAYAAABQYgI+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0AdPc/AAAAIJJREFUeF7t0AEBAAAAwqD1T20NDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAB4+X7lM1vjAAAAAElFTkSuQmCC';" 
+                        alt="Pirámide de madurez de Planeación y Programación" 
+                        class="pyramid-img mx-auto max-w-xs md:max-w-sm">
+                    <p class="text-[10px] md:text-xs text-center text-gray-500 mt-1 max-w-xl mx-auto">
+                        Nota: en los rangos de la pirámide, los extremos con <strong>)</strong> no están incluidos en el intervalo, mientras que los que tienen <strong>[</strong> sí se consideran incluidos.
+                    </p>
                 </div>
 
                 <!-- Call to action -->
@@ -286,6 +314,7 @@
         const pillars = [
             {
                 name: "Estructura organizacional",
+                pillarDescription: "Evalúa si la estructura organizacional soporta de manera efectiva la planeación y programación del mantenimiento, asegurando claridad de responsabilidades y una gestión ordenada del proceso, de forma que se consolide como un proceso gobernado.",
                 weight: 0.20,
                 id: "organizational",
                 levels: [
@@ -298,6 +327,7 @@
             },
             {
                 name: "Métodos y Procesos",
+                pillarDescription: "Mide la disciplina operativa con la que se planea y programa el trabajo: existencia y aplicación de flujos de trabajo, criterios de priorización, capacidad de sostener el plan frente a cambios, entre otros. En términos prácticos, evalúa si la organización trabaja con un proceso repetible que convierte demanda de mantenimiento en trabajo ejecutable con el menor nivel de reprogramación e interrupciones.",
                 weight: 0.30,
                 id: "methods",
                 levels: [
@@ -310,6 +340,7 @@
             },
             {
                 name: "Sistemas y Tecnología",
+                pillarDescription: "Evalúa qué tan bien los sistemas soportan el proceso de Planeación y programación, y qué tan confiable y oportuna es la información para tomar decisiones.",
                 weight: 0.25,
                 id: "systems",
                 levels: [
@@ -322,6 +353,7 @@
             },
             {
                 name: "Seguimiento y Mejora del Desempeño",
+                pillarDescription: "Mide la capacidad de la organización para controlar, aprender y mejorar el desempeño de la planeación y programación mediante indicadores, análisis y acciones de mejora.",
                 weight: 0.25,
                 id: "performance",
                 levels: [
@@ -388,6 +420,13 @@
             userData = { fullName, email, phone, company, position };
             
             document.getElementById('registrationScreen').classList.add('hidden');
+            document.getElementById('contextScreen').classList.remove('hidden');
+
+            document.getElementById('contextScreen').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goToChecklistFromContext() {
+            document.getElementById('contextScreen').classList.add('hidden');
             document.getElementById('checklistScreen').classList.remove('hidden');
 
             renderChecklist();
@@ -406,6 +445,7 @@
                             <span>${pillar.name}</span>
                             <span class="text-xs md:text-sm font-medium text-brand-secondary bg-brand-soft px-3 py-1 rounded-full">${(pillar.weight * 100).toFixed(0)}%</span>
                         </h3>
+                        <p class="text-sm text-gray-600 mb-2">${pillar.pillarDescription}</p>
                         <p class="text-sm text-gray-500 mb-4">Selecciona el nivel de madurez que mejor te describe:</p>
 
                         <div class="flex flex-wrap justify-between gap-2 mb-4">
@@ -590,6 +630,7 @@
             // Estado de pantallas
             document.getElementById('resultsSection').classList.add('hidden');
             document.getElementById('checklistScreen').classList.add('hidden');
+            document.getElementById('contextScreen').classList.add('hidden');
             document.getElementById('registrationScreen').classList.remove('hidden');
 
             // Limpiar pilares para regenerar
@@ -620,6 +661,10 @@
         // Inicialización
         window.onload = () => {
             document.getElementById('registrationForm').addEventListener('submit', handleRegistrationSubmit);
+           const continueBtn = document.getElementById('continueToChecklistBtn');
+           if (continueBtn) {
+               continueBtn.addEventListener('click', goToChecklistFromContext);
+            }
             document.getElementById('calculateBtn').addEventListener('click', calculateDiagnosis);
 
             const recalcBtn = document.getElementById('recalculateBtn');
@@ -630,5 +675,3 @@
     </script>
 </body>
 </html>
-
-
