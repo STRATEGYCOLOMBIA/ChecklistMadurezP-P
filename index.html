@@ -380,6 +380,9 @@
         const selectedScores = {};
         let alreadyCalculated = false; // Para controlar recálculos sin nuevo registro
 
+        // ✅ NUEVO: Constantes de política (para enviar al Flow con trazabilidad)
+        const DATA_POLICY_URL = "https://strategy.com.co/politica-de-tratamiento-de-datos/";
+
         // Modal de alerta
         function alertModal(message) {
             const tempAlert = document.createElement('div');
@@ -416,8 +419,23 @@
                 alertModal("Debes aceptar la Política de Tratamiento de Datos para continuar con el diagnóstico.");
                 return;
             }
+
+            // ✅ NUEVO: timestamp del consentimiento (evidencia)
+            const dataPolicyAcceptedAt = new Date().toISOString();
             
-            userData = { fullName, email, phone, company, position };
+            // ✅ MODIFICADO: guardamos también el consentimiento en userData
+            userData = { 
+                fullName, 
+                email, 
+                phone, 
+                company, 
+                position,
+
+                // ✅ NUEVO: campos de tratamiento de datos para enviar al Flow
+                dataPolicyAccepted: dataPolicyChecked,               // true/false (aquí será true)
+                dataPolicyAcceptedAt: dataPolicyAcceptedAt,          // ISO timestamp
+                dataPolicyUrl: DATA_POLICY_URL
+            };
             
             document.getElementById('registrationScreen').classList.add('hidden');
             document.getElementById('contextScreen').classList.remove('hidden');
@@ -519,6 +537,12 @@
                     celular: { type: userData.phone || "" },
                     empresa: { type: userData.company },
                     cargo: { type: userData.position },
+
+                    // ✅ NUEVO: CONSENTIMIENTO (tratamiento de datos)
+                    aceptaTratamientoDatos: { type: (userData.dataPolicyAccepted ? "Sí" : "No") },
+                    fechaAceptacionTratamientoDatos: { type: (userData.dataPolicyAcceptedAt || "") },
+                    urlPoliticaTratamientoDatos: { type: (userData.dataPolicyUrl || DATA_POLICY_URL) },
+
                     estructuraOrganizacional: { type: String(selectedScores["organizational"] ?? "") },
                     metodosProcesos: { type: String(selectedScores["methods"] ?? "") },
                     sistemasTecnologia: { type: String(selectedScores["systems"] ?? "") },
@@ -675,3 +699,4 @@
     </script>
 </body>
 </html>
+
